@@ -1,41 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Jumping : MonoBehaviour
+namespace Character.Movement
 {
-    private Rigidbody rigidbody;
-    [SerializeField] float jumPspeed = 2;
-    [SerializeField] LayerMask mask;
-    [SerializeField] Transform groundChec;
-    private Animator animator;
-    void Start()
+    public class Jumping : CharacterSetting
     {
-        rigidbody = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
-    }
-   
-    public void Jump()// прыжок с системой проверки соприкосновения с землей.
-    {
-        if (Physics.Raycast(groundChec.position, Vector2.down, 0.2f, mask))
+        private Rigidbody _rigidbody;
+        [SerializeField] LayerMask _mask;
+        [SerializeField] Transform _groundChec;
+        private Animator _animator;
+        void Start()
         {
-            animator.SetTrigger("Jump");
-            rigidbody.AddForce(Vector3.up * jumPspeed, ForceMode.Impulse);
+            _rigidbody = GetComponent<Rigidbody>();
+            _animator = GetComponent<Animator>();
         }
-        else
+
+        public void Jump()// прыжок с системой проверки соприкосновения с землей.
         {
-            Debug.Log("Did not find ground layer");
+            if (Physics.Raycast(_groundChec.position, Vector2.down, 0.2f, _mask))
+            {
+                _animator.SetTrigger("Jump");
+                _rigidbody.AddForce(Vector3.up * JumpSpeed , ForceMode.Impulse);
+            }
+            else
+            {
+                Debug.Log("Did not find ground layer");
+            }
         }
-    }
-    private void Update()
-    {
-        if (Physics.Raycast(groundChec.position, Vector2.down, 0.3f, mask))// проверка на соприкосновение с землейю
+        private void Update()
         {
-            animator.SetBool("isinAir", false);
-        }
-        else
-        {
-            animator.SetBool("isinAir", true);
+            if (Physics.Raycast(_groundChec.position, Vector2.down, 0.3f, _mask))// проверка на соприкосновение с землейю
+            {
+                _animator.SetBool("isinAir", false);
+            }
+            else
+            {
+                _animator.SetBool("isinAir", true);
+            }
         }
     }
 }
