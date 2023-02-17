@@ -5,9 +5,11 @@ namespace Test.Game.Button
 {
     public class TouchButton : DefaultButton
     {
-       // [Range(0f, 1f)]
+        [Range(0f, 1f)]
         [SerializeField] private float _activateTime = 0.5f;
         [SerializeField] private float _buttonPressedYPosition = -3.47f;
+        [SerializeField]
+        private float _buttonPressedXPosition;
 
         private MeshRenderer _buttonMeshRenderer;
         private void Start() => _buttonMeshRenderer = gameObject.GetComponent<MeshRenderer>();
@@ -17,7 +19,7 @@ namespace Test.Game.Button
             if (IsActive)
             {
                 transform.DOMoveY(_buttonPressedYPosition, _activateTime);
-                _buttonMeshRenderer.material.DOColor(Color.green, _activateTime);
+                _buttonMeshRenderer.material.DOColor(Color.black, _activateTime);
             }
         }
     }
