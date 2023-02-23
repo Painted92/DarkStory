@@ -5,15 +5,13 @@ using TMPro;
 
 public class Note : MonoBehaviour
 {
-    [TextArea(5,10)]
-    [SerializeField]  private string _text;
     [SerializeField] private TMP_Text _textNotes;
 
     
-    public void OpenNote()
+    public void OpenNote(string textNote)
     {
         gameObject.SetActive(true);
-        _textNotes.text = _text;
+        _textNotes.text = textNote;
     }
     public void CloseNote()
     {

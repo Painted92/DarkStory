@@ -9,9 +9,15 @@ namespace Test.Game.Button {
         [SerializeField] private float _buttonPressedZPosition;
         [SerializeField] private float _buttonPressedXPosition;
         [SerializeField] private float _buttonPressedYPosition;
+        [SerializeField] private float _buttonPressedZPositionLast;
         public void OpenDor()
         {
+            _buttonPressedZPositionLast = transform.position.z;
            transform.DOMoveZ(_buttonPressedZPosition, _activateTime);
+        }
+        public void CloseDor()
+        {
+            transform.DOMoveZ(_buttonPressedZPositionLast, _activateTime);
         }
     }
 }
