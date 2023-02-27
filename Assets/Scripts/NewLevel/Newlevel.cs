@@ -1,25 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Test.Game.Button;
-
-public class Newlevel : MonoBehaviour
+namespace Test.Game.Trigger.Zone
 {
-    [SerializeField] private DorOpen dor;
-    [SerializeField] private TimerLevel timer;
-
-    private void OnTriggerEnter(Collider other)
+    public class Newlevel : MonoBehaviour
     {
-        if(other.CompareTag("Player"))
+        [SerializeField] private DorOpen _dor;
+        [SerializeField] private TimerLevel _timer;
+
+        private void OnTriggerEnter(Collider other)
         {
-            dor.CloseDor();
-            timer.LvlTime = 60;
-
+            if (other.CompareTag("Player"))
+            {
+                _dor.CloseDor();
+                _timer.LvlTime = 60;
+            }
         }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-            gameObject.SetActive(false);
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Player"))
+                gameObject.SetActive(false);
+        }
     }
 }
