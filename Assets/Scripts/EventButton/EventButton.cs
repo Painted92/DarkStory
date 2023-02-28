@@ -4,20 +4,35 @@ using Test.Game.Note;
     public class EventButton : MonoBehaviour
     {
         [SerializeField] private Button _intBut;
-        [SerializeField] private Note noteMass;
-        [SerializeField] private string textNote;
-        private void OnTriggerEnter(Collider other)
+        [SerializeField] private Note _noteMass;
+        [SerializeField] private string _textNote;
+
+    public Button IntBut { get => _intBut; set => _intBut = value; }
+    public string TextNote { get => _textNote; set => _textNote = value; }
+
+    private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                _intBut.gameObject.SetActive(true);
-                _intBut.onClick.AddListener(delegate { noteMass.OpenNote(textNote); });
+              EnterButton();
             }
         }
-        private void OnTriggerExit(Collider other)
+
+       private void OnTriggerExit(Collider other)
+       {
+        ExitButton();
+       }
+         private void EnterButton()
         {
-            noteMass.CloseNote();
-            _intBut.gameObject.SetActive(false);
-            _intBut.onClick.RemoveListener(delegate { noteMass.OpenNote(textNote); });
-        }
+        IntBut.gameObject.SetActive(true);
+        IntBut.onClick.AddListener(delegate { _noteMass.OpenNote(TextNote); });
+    }
+
+       private void ExitButton()
+       {
+        _noteMass.CloseNote();
+        IntBut.gameObject.SetActive(false);
+        IntBut.onClick.RemoveListener(delegate { _noteMass.OpenNote(TextNote); });
+    }
+
     }

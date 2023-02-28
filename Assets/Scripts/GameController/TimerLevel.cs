@@ -5,7 +5,7 @@ using TMPro;
 public class TimerLevel : MonoBehaviour
 {
     private float _lvlTime = 30;
-    [SerializeField] private TMP_Text _timer;
+    [SerializeField] private TMP_Text _timerText;
 
     public float LvlTime { get => _lvlTime; set => _lvlTime = value; }
 
@@ -17,18 +17,23 @@ public class TimerLevel : MonoBehaviour
     private void TimerUpdate()
     {
         LvlTime -= Time.deltaTime;
-        _timer.text = "Time :" + LvlTime.ToString("0");
+        _timerText.text = "Time :" + LvlTime.ToString("0");
         if (LvlTime <= 0)
         {
             Debug.Log("You Die");
+            LvlTime = 0;
         }
         if (LvlTime <= 20)
         {
-            _timer.color =   Color.yellow;
+            _timerText.color =   Color.yellow;
         }
         if (LvlTime <= 10)
         {
-            _timer.color = Color.red;
+            _timerText.color = Color.red;
+        }
+        if(LvlTime >= 21)
+        {
+            _timerText.color = Color.white;
         }
     }
 }
